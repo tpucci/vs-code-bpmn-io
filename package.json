@@ -43,7 +43,21 @@
         }
       }
     ],
+    "keybindings": [
+      {
+        "command": "extension.bpmn-io.edit",
+        "key": "shift+ctrl+v",
+        "mac": "shift+cmd+v",
+        "when": "editorTextFocus && resourceLangId == bpmn"
+      }
+    ],
     "menus": {
+      "commandPalette": [
+        {
+          "when": "resourceLangId == bpmn",
+          "command": "extension.bpmn-io.edit"
+        }
+      ],
       "explorer/context": [
         {
           "when": "resourceLangId == bpmn",
