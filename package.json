@@ -4,48 +4,40 @@
   "description": "VS Code Extension for Displaying and Editing BPMN 2.0 Files, based on bpmn.io",
   "license": "MIT",
   "version": "0.6.4",
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "enableProposedApi": true,
   "publisher": "bpmn-io",
   "repository": "https://github.com/bpmn-io/vs-code-bpmn-io/",
   "engines": {
-    "vscode": "^1.38.0"
+    "vscode": "^1.40.0"
   },
   "icon": "resources/logo_marketplace.png",
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:bpmn",
-    "onCommand:extension.bpmn-io.preview",
+    "onCustomEditor:bpmn-io.editor",
     "onCommand:extension.bpmn-io.edit",
-    "onWebviewPanel:bpmn-io.preview",
     "onWebviewPanel:bpmn-io.edit"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "languages": [
+    "customEditors": [
       {
-        "id": "bpmn",
-        "aliases": [
-          "BPMN File",
-          "bpmn"
-        ],
-        "extensions": [
-          ".bpmn",
-          ".bpmn20.xml"
-        ],
-        "configuration": "./language-configuration.json"
+        "viewType": "bpmn-io.editor",
+        "displayName": "BPMN Editor",
+        "priority": "default",
+        "selector": [
+          {
+            "filenamePattern": "*.{bpmn,bpmn20.xml}"
+          }
+        ]
       }
     ],
     "commands": [
-      {
-        "command": "extension.bpmn-io.preview",
-        "title": "Open BPMN Preview",
-        "icon": {
-          "light": "./resources/logo_light.png",
-          "dark": "./resources/logo_dark.png"
-        }
-      },
       {
         "command": "extension.bpmn-io.edit",
         "title": "Open BPMN Modeler",

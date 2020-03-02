@@ -6,7 +6,16 @@ import { BpmnModelerBuilder } from './bpmnModelerBuilder';
 
 const fs = require('fs');
 
-export class EditingProvider implements vscode.TextDocumentContentProvider {
+export class EditingProvider implements vscode.CustomEditorProvider {
+
+  public async resolveCustomDocument(_document: vscode.CustomDocument): Promise<vscode.CustomEditorCapabilities> {
+    return {};
+  }
+
+  resolveCustomEditor(document: vscode.CustomDocument<unknown>, webviewPanel: vscode.WebviewPanel): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
 
   public constructor(private _context: vscode.ExtensionContext) { }
 

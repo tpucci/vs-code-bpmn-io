@@ -11,8 +11,12 @@ const fs = require('fs');
 import { EditingProvider } from './features/editing';
 import { PreviewProvider } from './features/preview';
 
+import { EditorManager } from './features/editing/editorManager';
+
 const editingType = 'bpmn-io.editing';
 const previewType = 'bpmn-io.preview';
+
+const VIEW_TYPE = 'bpmn-io.editor';
 
 const COMMANDS = {
   PREVIEW_CMD: 'extension.bpmn-io.preview',
@@ -134,17 +138,15 @@ export function activate(context: ExtensionContext) {
     openedPanels.push(previewPanel);
   };
 
+  const _registerEditor = (context: vscode.ExtensionContext): void => {
+    const editorManager = new EditorManager(vscode.Uri.file(context.extensionPath));
+    context.subscriptions.push(vscode.window.registerCustomEditorProvider(VIEW_TYPE, editorManager));
+  };
+
   const _registerCommands = (): void => {
     const {
-      PREVIEW_CMD,
       EDIT_CMD
     } = COMMANDS;
-
-    vscode.commands.registerCommand(PREVIEW_CMD, (uri: Uri) => {
-      if (!_revealIfAlreadyOpened(uri, previewProvider)) {
-        _registerPanel(createPanel(context, uri, previewProvider));
-      }
-    });
 
     vscode.commands.registerCommand(EDIT_CMD, (uri: Uri) => {
       if (!_revealIfAlreadyOpened(uri, editingProvider)) {
@@ -179,7 +181,8 @@ export function activate(context: ExtensionContext) {
     }
   };
 
-  _registerCommands();
+  _registerEditor(context);
+  // _registerCommands();
   _serializePanel(editingProvider);
   _serializePanel(previewProvider);
 }
