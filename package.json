@@ -4,6 +4,7 @@
   "description": "VS Code Extension for Displaying and Editing BPMN 2.0 Files, based on bpmn.io",
   "license": "MIT",
   "version": "0.6.4",
+  "enableProposedApi": true,
   "publisher": "bpmn-io",
   "repository": "https://github.com/bpmn-io/vs-code-bpmn-io/",
   "engines": {
